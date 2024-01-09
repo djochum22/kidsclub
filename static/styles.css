@@ -1,0 +1,60 @@
+.inline {
+    max-width: 400px;
+    margin: auto;
+}
+
+.input-icons i {
+    position: absolute;
+}
+
+.input-icons {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.icon {
+    padding: 15px;
+    min-width: 40px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+.input-text {
+    font-family: "Palatino", serif;
+}
+
+.input-text[type="text"] {
+    font-family: "Palatino", serif;
+}
+
+.input-text::placeholder {
+    font-family: "Palatino", serif;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.short-hr {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.dropdown-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.dropdown-btn {
+    margin-left: 10px;
+}

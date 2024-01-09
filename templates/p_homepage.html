@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Parent Home Page
+{% endblock %}
+
+{% block main %}
+    <form action="/" method="POST">
+        <h2 class="input-text">Kids Club Sign-up</h2>
+        <hr class="short-hr">
+        <div>
+            <label class="input-text bold" for="date">Select a date: </label>
+            <input class="input-text" type="date" id="date" name="date" required>
+        </div>
+        <br>
+        <div>
+            <label class="input-text bold" for="students">Select a student: </label>
+            <select name="students" id="students" class="input-text">
+                <option value="placeholder" disabled selected>Select by name</option>
+                {% for student in students %}
+                    <option value="{{ student['name'] }}">{{ student['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <hr class="short-hr">
+        <h4 class="input-text bold">Sign-in time</h4>
+        <div style="margin: 10px">
+            <select name="dropoff" id="dropoff" class="input-text" required>
+                <option value="placeholder" disabled selected>Select drop-off</option>
+                <option value="After School">After School</option>
+                <option value="After Real">After REAL</option>
+            </select>
+        </div>
+        <div>
+            <label class="input-text">Estimated time of pickup: </label>
+            <input type="time" id="appt" name="time" min="15:10" max="17:00" required>
+        </div>
+        <button class="btn btn-primary input-text" style="margin: 20px" type="submit">Submit</button>
+    </form>
+
+    <hr class="short-hr">
+    {% if schedule_student_information %}
+        <h3 class="input-text">Schedule Information</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="input-text">Student</th>
+                    <th class="input-text">Date</th>
+                    <th class="input-text">Drop-off</th>
+                    <th class="input-text">Pick-up</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule_info in schedule_student_information %}
+                    <tr>
+                        <td class="input-text">{{ schedule_info['name'] }}</td>
+                        <td class="input-text">{{ schedule_info['date'] }}</td>
+                        <td class="input-text">{{ schedule_info['dropoff'] }}</td>
+                        <td class="input-text">{{ schedule_info['eta'] }}</td>
+                        <td>
+                            <form action="/remove" method="POST" style="display: inline;">
+                                <input type="hidden" name="remove_student_id" value="{{ schedule_info['student_id'] }}">
+                                <button class="btn btn-danger btn-sm" type="submit">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="input-text">No schedule information available</p>
+    {% endif %}
+{% endblock %}

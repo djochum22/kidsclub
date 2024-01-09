@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post" class="inline">
+        <div class="input-icons" style="border:2px solid black; padding:20px">
+            <div class="mb-3">
+                <i class="fa fa-user icon"></i>
+                <input autocomplete="off" autofocus mx-auto w-auto id="first_name" name="first_name" type="text" class="input-field input-text" placeholder="First Name">
+            </div>
+            <div class="mb-3">
+                <i class="fa fa-user icon"></i>
+                <input autocomplete="off" autofocus mx-auto w-auto id="last_name" name="last_name" type="text" class="input-field input-text" placeholder="Last Name">
+            </div>
+            <div class="mb-3">
+                <i class="fa fa-envelope icon"></i>
+                <input autocomplete="off" autofocus mx-auto w-auto id="email" name="email" type="text" class="input-field input-text" placeholder="Email">
+            </div>
+            <div class="mb-3">
+                <i class="fa fa-lock icon"></i>
+                <input mx-auto w-auto id="password" name="password" type="password" class="input-field input-text" placeholder="Password">
+            </div>
+            <div class="mb-3">
+                <i class="fa fa-duatone fa-check icon"></i>
+                <input mx-auto w-auto id="confirmation" name="confirmation" type="password" class="input-field input-text" placeholder="Password Confirmation">
+            </div>
+            <button class="btn btn-primary input-text" type="submit">Register</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Instructor Home Page
+{% endblock %}
+
+{% block main %}
+    <form action="/i_homepage" method="POST">
+        <h3 class="input-text">Schedule Information</h3>
+        <hr class="short-hr">
+        <div>
+            <label class="input-text bold" for="date">Select a date: </label>
+            <input class="input-text" type="date" id="date" name="date" required>
+        </div>
+        <button class="input-text btn btn-primary" style="margin: 20px" type="submit">Submit</button>
+        <hr class="short-hr">
+    </form>
+    {% if schedule_student_information %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="input-text">Student</th>
+                    <th class="input-text">Date</th>
+                    <th class="input-text">Drop-off</th>
+                    <th class="input-text">Pick-up</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule_info in schedule_student_information %}
+                    <tr>
+                        <td class="input-text">{{ schedule_info['name'] }}</td>
+                        <td class="input-text">{{ schedule_info['date'] }}</td>
+                        <td class="input-text">{{ schedule_info['dropoff'] }}</td>
+                        <td class="input-text">{{ schedule_info['eta'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="input-text">No schedule information available</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <form action="/login" method="post" class="inline">
+        <div class="input-icons" style="border:2px solid black; padding:20px">
+            <div class="mb-3">
+                <i class="fa fa-envelope icon"></i>
+                <input autocomplete="off" autofocus mx-auto w-auto id="email" name="email" type="text" class="input-field input-text" placeholder="Email">
+            </div>
+            <div class="mb-3">
+                <i class="fa fa-lock icon"></i>
+                <input mx-auto w-auto id="password" name="password" type="password" class="input-field input-text" placeholder="Password">
+                <a class="input-text" href="/register">register</a>
+            </div>
+            <hr short-hr>
+            <button class="btn btn-primary input-text" type="submit">Log In</button>
+        </div>
+    </form>
+{% endblock %}

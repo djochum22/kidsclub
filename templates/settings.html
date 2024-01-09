@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block main %}
+    <h2 class="input-text">Settings</h2>
+    <hr short-hr>
+    <form action="/settings" method="POST">
+        <div>
+            <label class="input-text">Email:</label>
+            <label class="input-text" value="{{ email }}">{{ email }}</label>
+        </div>
+        <a class="input-text" href="/change_password">Change Password</a>
+    </form>
+{% endblock %}
