@@ -23,7 +23,7 @@ def instructor_required(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        allowed_emails = {"instructor@fisw.com", "instructor2@fisw.edu", "instructor3@fisw.edu", "instructor4@fisw.edu"}
+        allowed_emails = {"instructor1@fisw.edu", "instructor2@fisw.edu", "instructor3@fisw.edu", "instructor4@fisw.edu"}
 
         user_email = session.get("user_email")
 
