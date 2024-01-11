@@ -166,7 +166,8 @@ def p_homepage():
             user_id,
         )
 
-        students_name = db.execute("SELECT name FROM students ORDER BY name")
+        email = session.get("user_email")
+        students_name = db.execute("SELECT * FROM students WHERE parent_id = '?' ORDER BY name)", user_id)
 
         return render_template(
             "p_homepage.html",
@@ -175,7 +176,8 @@ def p_homepage():
         )
 
     else:
-        students_name = db.execute("SELECT name FROM students ORDER BY name")
+        user_id = session.get("user_id")
+        students_name = db.execute("SELECT * FROM students WHERE parent_id = '?' ORDER BY name)", user_id)
         return render_template(
             "p_homepage.html",
             students=students_name,
