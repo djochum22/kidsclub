@@ -196,6 +196,8 @@ def scheduleinformation():
                 return render_template("p_homepage.html")
         
         user_id = session.get("user_id")
+        
+        students_name = db.execute("SELECT * FROM students WHERE user_id = ? ORDER BY name", user_id)
 
         existing_row = db.execute(
             "SELECT * FROM schedule WHERE user_id = ?",
@@ -210,12 +212,17 @@ def scheduleinformation():
                 date,
                 user_id,
             )
-            return render_template("p_homepage.html", schedule_student_information=schedule_student_information)
+            return render_template("p_homepage.html", students=students_name, schedule_student_information=schedule_student_information)
     
     else:
-        return render_template("p_homepage", schedule_student_information=None)
-    
-
+        user_id = session.get("user_id")
+        students_name = db.execute("SELECT * FROM students WHERE user_id = ? ORDER BY name", user_id)
+        return render_template(
+            "p_homepage.html",
+            students=students_name,
+            schedule_student_information=None,
+            selected_date=None,
+        )    
 
 @app.route("/remove", methods=["POST"])
 @login_required
