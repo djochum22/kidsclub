@@ -187,21 +187,22 @@ def p_homepage():
         
 @app.route("/scheduleinformation", methods=["GET", "POST"])
 @login_required
-def p_homepage():
+def scheduleinformation():
     if request.method == "POST": 
-        if not schedule_date:
+        date = request.form.get("date")
+        if not date:
                 flash("Fill in all required fields")
                 print(400)
                 return render_template("p_homepage.html")
         
         user_id = session.get("user_id")
 
-        existing_schedule = db.execute(
+        existing_row = db.execute(
             "SELECT * FROM schedule WHERE user_id = ?",
             user_id,
         )
         
-        if not existing_schedule:
+        if not existing_row:
             return render_template("p.homepage.html")
         else:
             schedule_student_information = db.execute(
