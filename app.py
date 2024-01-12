@@ -126,6 +126,7 @@ def p_homepage():
         dropoff = request.form.get("dropoff")
         eta = request.form.get("time")
 
+        
         if not date or not student or not dropoff or not eta:
             flash("Fill in all required fields")
             print(400)
@@ -184,16 +185,34 @@ def p_homepage():
             selected_date=None,
         )
         
-@app.route("/scheduleinformation", methods=["GET"])
+@app.route("/scheduleinformation", methods=["GET", "POST"])
 @login_required
 def p_homepage():
-    schedule_student_information = db.execute(
-            "SELECT s.name, sch.date, sch.dropoff, sch.eta FROM students s JOIN schedule sch ON s.id = sch.student_id WHERE sch.date = ? AND sch.user_id = ?",
-            date,
+    if request.method == "POST": 
+        if not schedule_date:
+                flash("Fill in all required fields")
+                print(400)
+                return render_template("p_homepage.html")
+        
+        user_id = session.get("user_id")
+
+        existing_schedule = db.execute(
+            "SELECT * FROM schedule WHERE user_id = ?",
             user_id,
         )
+        
+        if not existing_schedule:
+            return render_template("p.homepage.html")
+        else:
+            schedule_student_information = db.execute(
+                "SELECT s.name, sch.date, sch.dropoff, sch.eta FROM students s JOIN schedule sch ON s.id = sch.student_id WHERE sch.date = ? AND sch.user_id = ?",
+                date,
+                user_id,
+            )
+            return render_template("p_homepage.html", schedule_student_information=schedule_student_information)
     
-    return render_template("p_homepage.html", schedule_student_information=schedule_student_information)
+    else:
+        return render_template("p_homepage", schedule_student_information=None)
     
 
 
