@@ -183,6 +183,18 @@ def p_homepage():
             schedule_student_information=None,
             selected_date=None,
         )
+        
+@app.route("/scheduleinformation", methods=["GET"])
+@login_required
+def p_homepage():
+    schedule_student_information = db.execute(
+            "SELECT s.name, sch.date, sch.dropoff, sch.eta FROM students s JOIN schedule sch ON s.id = sch.student_id WHERE sch.date = ? AND sch.user_id = ?",
+            date,
+            user_id,
+        )
+    
+    return render_template("p_homepage.html", schedule_student_information=schedule_student_information)
+    
 
 
 @app.route("/remove", methods=["POST"])
