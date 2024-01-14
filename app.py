@@ -1,5 +1,6 @@
 import os
 
+
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
@@ -11,6 +12,8 @@ app = Flask(__name__)
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+
+
 Session(app)
 
 db = SQL("sqlite:///project.db")
@@ -230,7 +233,7 @@ def remove_student():
     user_id = session.get("user_id")
     date = request.form.get("date")
     student_id_to_remove = request.form.get("remove_student_id")
-    
+    print("digga")
     if student_id_to_remove:
         db.execute(
             "DELETE FROM schedule WHERE user_id = ? AND student_id = ? AND date = ?",
