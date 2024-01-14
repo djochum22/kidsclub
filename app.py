@@ -229,7 +229,7 @@ def scheduleinformation():
 def remove_student():
     user_id = session.get("user_id")
     student_id_to_remove = request.form.get("remove_student_id")
-
+    
     if student_id_to_remove:
         db.execute(
             "DELETE FROM schedule WHERE user_id = ? AND student_id = ?",
@@ -238,7 +238,6 @@ def remove_student():
         )
 
     return redirect("/")
-
 
 @app.route("/i_homepage", methods=["GET", "POST"])
 @login_required
