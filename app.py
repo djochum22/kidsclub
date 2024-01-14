@@ -228,13 +228,14 @@ def scheduleinformation():
 @login_required
 def remove_student():
     user_id = session.get("user_id")
+    date = request.form.get("date")
     student_id_to_remove = request.form.get("remove_student_id")
     
     if student_id_to_remove:
         db.execute(
-            "DELETE FROM schedule WHERE user_id = ? AND student_id = ?",
+            "DELETE FROM schedule WHERE user_id = ? AND student_id = ? AND date = ?",
             user_id,
-            student_id_to_remove,
+            student_id_to_remove, date,
         )
 
     return redirect("/")
