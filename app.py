@@ -227,21 +227,25 @@ def scheduleinformation():
             selected_date=None,
         )    
 
-@app.route("/remove", methods=["POST"])
+@app.route("/remove", methods=["GET", "POST"])
 @login_required
 def remove_student():
-    user_id = session.get("user_id")
-    date = request.form.get("date")
-    student_id_to_remove = request.form.get("remove_student_id")
-    print("digga")
-    if student_id_to_remove:
-        db.execute(
-            "DELETE FROM schedule WHERE user_id = ? AND student_id = ? AND date = ?",
-            user_id,
-            student_id_to_remove, date,
-        )
+    if request.method == "POST":
+        user_id = session.get("user_id")
+        date = request.form.get("date")  
+        student_id_to_remove = request.form.get("remove_student_id")
+        if student_id_to_remove:
+            db.execute(
+                "DELETE FROM schedule WHERE user_id = ? AND student_id = ? AND date = ?",
+                user_id,
+                student_id_to_remove,
+                date,
+            )
+        return redirect("/")
+    else:
+        return render_template("error.html", message="Method Not Allowed", code=405)
 
-    return redirect("/")
+
 
 @app.route("/i_homepage", methods=["GET", "POST"])
 @login_required
