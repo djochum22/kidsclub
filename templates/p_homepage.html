@@ -69,7 +69,7 @@
                         <td class="input-text">{{ schedule_info['dropoff'] }}</td>
                         <td class="input-text">{{ schedule_info['eta'] }}</td>
                         <td>
-                            <<button class="btn btn-danger btn-sm" onclick="removeStudent(&#39;{{ schedule_info['student_id'] | e }}&#39;, &#39;{{ schedule_info['date'] | e }}&#39;)">Remove</button>
+                            <button class="btn btn-danger btn-sm" onclick="removeStudent(`{{ schedule_info['student_id'] | e }}`, `{{ schedule_info['date'] | e }}`)">Remove</button>
                         </td>
                     </tr>
                 {% endfor %}

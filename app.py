@@ -235,12 +235,14 @@ def remove_student():
         try:
             user_id = session.get("user_id")
             student_id_to_remove = request.form.get("remove_student_id")
+            date = request.form.get("date")
 
-            if student_id_to_remove:
+            if student_id_to_remove and date:
                 db.execute(
-                    "DELETE FROM schedule WHERE user_id = ? AND student_id = ?",
+                    "DELETE FROM schedule WHERE user_id = ? AND student_id = ? AND date = ?",
                     user_id,
                     student_id_to_remove,
+                    date,
                 )
 
             print("Student removed successfully!")
@@ -250,7 +252,6 @@ def remove_student():
             return "Error"
     else:
         return render_template("error.html", message="Invalid request", code=400)
-
 
 @app.route("/i_homepage", methods=["GET", "POST"])
 @login_required
