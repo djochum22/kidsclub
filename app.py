@@ -237,6 +237,10 @@ def remove_student():
             student_id_to_remove = request.form.get("remove_student_id")
             date = request.form.get("date")
 
+            print(user_id)
+            print(student_id_to_remove)
+            print(date)
+            
             if student_id_to_remove and date:
                 db.execute(
                     "DELETE FROM schedule WHERE user_id = ? AND student_id = ? AND date = ?",

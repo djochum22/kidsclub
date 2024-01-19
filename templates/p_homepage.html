@@ -55,25 +55,23 @@
         <script>
             function removeStudent(studentId, date) {
                 console.log("Function removeStudent called with ID:", studentId, "and date:", date);
-            
-                if (confirm("Are you sure you want to remove this student?")) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/remove", true);
-                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4) {
-                            console.log("XHR status:", xhr.status);
-                            console.log("XHR response:", xhr.responseText);
-                            if (xhr.status == 200) {
-                                console.log("Success!");
-                                location.reload();
-                            } else {
-                                console.error("Error:", xhr.statusText);
-                            }
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/remove", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        console.log("XHR status:", xhr.status);
+                        console.log("XHR response:", xhr.responseText);
+                        if (xhr.status == 200) {
+                            console.log("Success!");
+                        } else {
+                            console.error("Error:", xhr.statusText);
                         }
-                    };
-                    xhr.send("remove_student_id=" + encodeURIComponent(studentId) + "&date=" + encodeURIComponent(date));
-                }
+                    }
+                };
+                console.log(studentId);
+                console.log(date);
+                xhr.send("remove_student_id=" + encodeURIComponent(studentId) + "&date=" + encodeURIComponent(date));
             }                                        
         </script>
         <table class="table">
@@ -83,6 +81,7 @@
                     <th class="input-text">Date</th>
                     <th class="input-text">Drop-off</th>
                     <th class="input-text">Pick-up</th>
+                    <th class="input-text">Student-id</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,6 +91,7 @@
                         <td class="input-text">{{ schedule_info['date'] }}</td>
                         <td class="input-text">{{ schedule_info['dropoff'] }}</td>
                         <td class="input-text">{{ schedule_info['eta'] }}</td>
+                        <td class="input-text">{{ schedule_info['student_id'] }}</td>
                         <td>
                             <button class="btn btn-danger btn-sm" onclick="removeStudent(`{{ schedule_info['student_id'] | e }}`, `{{ schedule_info['date'] | e }}`)">Remove</button>
                         </td>
