@@ -1,32 +1,5 @@
 {% extends "layout.html" %}
 
-{% block head %}
-    <script>
-        function removeStudent(studentId, date) {
-            console.log("Function removeStudent called with ID:", studentId, "and date:", date);
-        
-            if (confirm("Are you sure you want to remove this student?")) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/remove", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
-                        console.log("XHR status:", xhr.status);
-                        console.log("XHR response:", xhr.responseText);
-                        if (xhr.status == 200) {
-                            console.log("Success!");
-                            location.reload();
-                        } else {
-                            console.error("Error:", xhr.statusText);
-                        }
-                    }
-                };
-                xhr.send("remove_student_id=" + encodeURIComponent(studentId) + "&date=" + encodeURIComponent(date));
-            }
-        }                                        
-    </script>
-{% endblock %}
-
 {% block title %}
     Parent Home Page
 {% endblock %}
@@ -79,6 +52,30 @@
     </form>
 
     {% if schedule_student_information %}
+        <script>
+            function removeStudent(studentId, date) {
+                console.log("Function removeStudent called with ID:", studentId, "and date:", date);
+            
+                if (confirm("Are you sure you want to remove this student?")) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/remove", true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) {
+                            console.log("XHR status:", xhr.status);
+                            console.log("XHR response:", xhr.responseText);
+                            if (xhr.status == 200) {
+                                console.log("Success!");
+                                location.reload();
+                            } else {
+                                console.error("Error:", xhr.statusText);
+                            }
+                        }
+                    };
+                    xhr.send("remove_student_id=" + encodeURIComponent(studentId) + "&date=" + encodeURIComponent(date));
+                }
+            }                                        
+        </script>
         <table class="table">
             <thead>
                 <tr>
