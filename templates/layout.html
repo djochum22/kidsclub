@@ -19,6 +19,30 @@
 
         <title>CS50 Final Project: {% block title %}{% endblock %}</title>
 
+        <script>
+            function removeStudent(studentId) {
+                console.log("Removing student with ID:", studentId);
+            
+                if (confirm("Are you sure you want to remove this student?")) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/remove", true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-for-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) {
+                            console.log("XHR status:", xhr.status);
+                            if (xhr.status == 200) {
+                                console.log("Success!");
+                                location.reload();
+                            } else {
+                                console.error("Error:", xhr.statusText);
+                            }
+                        }
+                    };
+                    xhr.send("remove_student_id=" + encodeURIComponent(studentId));
+                }
+            }                     
+        </script>
+
     </head>
 
     <body>

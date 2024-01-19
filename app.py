@@ -227,24 +227,29 @@ def scheduleinformation():
             selected_date=None,
         )    
 
-@app.route("/remove", methods=["GET", "POST"])
+@app.route("/remove", methods=["POST"])
 @login_required
 def remove_student():
+    print("Removing student route accessed!")
     if request.method == "POST":
-        user_id = session.get("user_id")
-        date = request.form.get("date")  
-        student_id_to_remove = request.form.get("remove_student_id")
-        if student_id_to_remove:
-            db.execute(
-                "DELETE FROM schedule WHERE user_id = ? AND student_id = ? AND date = ?",
-                user_id,
-                student_id_to_remove,
-                date,
-            )
-        return redirect("/")
-    else:
-        return render_template("error.html", message="Method Not Allowed", code=405)
+        try:
+            user_id = session.get("user_id")
+            student_id_to_remove = request.form.get("remove_student_id")
 
+            if student_id_to_remove:
+                db.execute(
+                    "DELETE FROM schedule WHERE user_id = ? AND student_id = ?",
+                    user_id,
+                    student_id_to_remove,
+                )
+
+            print("Student removed successfully!")
+            return "Success"
+        except Exception as e:
+            print("Error removing student:", str(e))
+            return "Error"
+    else:
+        return render_template("error.html", message="Invalid request", code=400)
 
 
 @app.route("/i_homepage", methods=["GET", "POST"])

@@ -69,10 +69,7 @@
                         <td class="input-text">{{ schedule_info['dropoff'] }}</td>
                         <td class="input-text">{{ schedule_info['eta'] }}</td>
                         <td>
-                            <form action="/remove" method="POST" style="display: inline;">
-                                <input type="hidden" name="remove_student_id" id="remove_student_id" value="{{ schedule_info['student_id'] }}">
-                                <button class="btn btn-danger btn-sm" type="submit">Remove</button>
-                            </form>                                                        
+                            <<button class="btn btn-danger btn-sm" onclick="removeStudent(&#39;{{ schedule_info['student_id'] | e }}&#39;, &#39;{{ schedule_info['date'] | e }}&#39;)">Remove</button>
                         </td>
                     </tr>
                 {% endfor %}
